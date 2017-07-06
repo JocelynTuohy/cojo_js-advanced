@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title></title>
+  </head>
+  <body>
+    <h1>Assignment I: JavaScript Library</h1>
+    <p>Finish the five methods attached to the _ object to create
+      your own custom library. The purpose of this assignment is to
+      show how a simple JavaScript library can be made.</p>
+    <script>
+      var _ = {
+        map: function(list, iteratee){
+          // Produce a new array of values by mapping each
+          // value in list through a transformation
+          // function (iteratee).
+          var new_list = [];
+          for (let i = 0; i < list.length; ++i){
+            let value = list[i];
+            new_list[i] = iteratee(value);
+            // console.log('old list: ' + list);
+            // console.log('new list: ' + new_list);
+          }
+          return new_list;
+        },
+        reduce: function(list, iteratee, memo=null){
+          // Also known as inject and foldl, reduce boils 
+          // down a list of values into a single value. Memo
+          // is the initial state of the reduction, and each
+          // successive step of it should be returned by
+          // iteratee. If no memo is passed to the initial
+          // invocation of reduce, the iteratee is not invoked
+          // on the first element of the list. The first element
+          // is instead passed as the memo in the invocation of
+          // the iteratee on the next element in the list.
+          if (memo == null){
+            memo = list[0];
+            var start = 1;
+          }else{
+            var start = 0;
+          }
+          // console.log('Memo: ' + memo);
+          for(let i = start; i < list.length; ++i){
+            let value = list[i];
+            // console.log('current value: ' + value);
+            memo = iteratee(memo, value);
+            // console.log('new memo: ' + memo);
+          }
+          // console.log(memo);
+          return memo;
+        },
+        find: function(list, predicate){
+          // Looks through each value in the list, returning the
+          // first one that passes a truth test (predicate), or
+          // undefined if no value passes the test. The function
+          // returns as soon as it finds an acceptable element,
+          // and doesn't traverse the entire list.
+          for (let i = 0; i < list.length; ++i){
+            if (predicate(list[i])){
+              return list[i];
+            }
+          }
+        },
+        filter: function(list, predicate){
+          // Looks through each value in the list, returning an
+          // array of all the values that pass a truth test
+          // (predicate).
+          var filtered = [];
+          for (let i = 0; i < list.length; ++i){
+            if (predicate(list[i])){
+              filtered.push(list[i]);
+            }
+          }
+          return filtered;
+        },
+        reject: function(list, predicate){
+          // Returns the values in list without the elements that
+          // the truth test (predicate) passes. The opposite of
+          // filter.
+          var rejected = [];
+          for (let i = 0; i < list.length; ++i){
+            if (!predicate(list[i])){
+              rejected.push(list[i]);
+            }
+          }
+          return rejected;
+        }
+      }
+    </script>
+  </body>
+</html>
